@@ -19,7 +19,7 @@ import com.smoothstack.entity.Borrower;
 import com.smoothstack.entity.LibraryBranch;
 import com.smoothstack.entity.Publisher;
 
-@FeignClient("EurekaAdministrator")
+@FeignClient(name="EurekaAdministrator")
 public interface IFeignAdministrator {
 
 	// -----------------------AUTHOR-----------------------------------//
@@ -33,7 +33,7 @@ public interface IFeignAdministrator {
 	@PutMapping("/lms/administrator/authors/author")
 	public ResponseEntity<Author> updateAuthor(@RequestBody Author author);
 
-	@DeleteMapping("/lms/administrator/authors/author{authorId}")
+	@DeleteMapping("/lms/administrator/authors/{authorId}")
 	public ResponseEntity<Author> deleteAuthor(@PathVariable long authorId);
 
 	// -----------------------AUTHOR-----------------------------------//
@@ -49,7 +49,7 @@ public interface IFeignAdministrator {
 	@PutMapping("/lms/administrator/books/book")
 	public ResponseEntity<Book> updateBook(@RequestBody Book book);
 
-	@DeleteMapping("/lms/administrator/books/book/{bookId}")
+	@DeleteMapping("/lms/administrator/books/{bookId}")
 	public ResponseEntity<Book> deleteBook(@PathVariable long bookId);
 
 	// -----------------------BOOK-------------------------------------//
@@ -65,7 +65,7 @@ public interface IFeignAdministrator {
 	@PutMapping("/lms/administrator/borrowers/borrower")
 	public ResponseEntity<Borrower> updateBorrower(@RequestBody Borrower borrower);
 
-	@DeleteMapping("/lms/administrator/borrowers/borrower{borrowerId}")
+	@DeleteMapping("/lms/administrator/borrowers/{borrowerId}")
 	public ResponseEntity<Borrower> deleteBorrower(@PathVariable long borrowerId);
 
 	// -----------------------BORROWER-------------------------------------//
@@ -81,7 +81,7 @@ public interface IFeignAdministrator {
 	@PutMapping("/lms/administrator/libraryBranches/libraryBranch")
 	public ResponseEntity<LibraryBranch> updateLibraryBranch(@RequestBody LibraryBranch libraryBranch);
 
-	@DeleteMapping("/lms/administrator/libraryBranches/libraryBranch/{libraryBranchId}")
+	@DeleteMapping("/lms/administrator/libraryBranches/{libraryBranchId}")
 	public ResponseEntity<LibraryBranch> deleteLibraryBranch(@PathVariable long libraryBranchId);
 
 	// -----------------------LIBRARYBRANCH-------------------------------------//
@@ -97,7 +97,7 @@ public interface IFeignAdministrator {
 	@PutMapping("/lms/administrator/publishers/publisher")
 	public ResponseEntity<Publisher> updatePublisher(@RequestBody Publisher publisher);
 
-	@DeleteMapping("/lms/administrator/publishers/publisher{publisherId}")
+	@DeleteMapping("/lms/administrator/publishers/{publisherId}")
 	public ResponseEntity<Publisher> deletePublisher(@PathVariable long publisherId);
 
 	// -----------------------PUBLISHER-----------------------------------------//

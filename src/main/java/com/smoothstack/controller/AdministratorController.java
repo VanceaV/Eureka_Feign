@@ -3,6 +3,7 @@ package com.smoothstack.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.smoothstack.IFeign.IFeignAdministrator;
 import com.smoothstack.entity.Author;
 import com.smoothstack.entity.Book;
@@ -47,9 +47,14 @@ public class AdministratorController {
 
 	}
 
-	@DeleteMapping("/authors/author{authorId}")
+	@DeleteMapping("/authors/{authorId}")
 	public ResponseEntity<Author> deleteAuthor(@PathVariable long authorId) {
-		return iFeignAdministrator.deleteAuthor(authorId);
+
+		try {
+			return iFeignAdministrator.deleteAuthor(authorId);
+		} catch (feign.FeignException fe) {
+			return new ResponseEntity<Author>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// -----------------------AUTHOR-----------------------------------//
@@ -71,9 +76,15 @@ public class AdministratorController {
 		return iFeignAdministrator.updateBook(book);
 	}
 
-	@DeleteMapping("/books/book/{bookId}")
+	@DeleteMapping("/books/{bookId}")
 	public ResponseEntity<Book> deleteBook(@PathVariable long bookId) {
-		return iFeignAdministrator.deleteBook(bookId);
+
+		try {
+			return iFeignAdministrator.deleteBook(bookId);
+		} catch (feign.FeignException fe) {
+			return new ResponseEntity<Book>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	// -----------------------BOOK-----------------------------------//
@@ -95,9 +106,14 @@ public class AdministratorController {
 		return iFeignAdministrator.updateBorrower(borrower);
 	}
 
-	@DeleteMapping("/borrowers/borrower{borrowerId}")
+	@DeleteMapping("/borrowers/{borrowerId}")
 	public ResponseEntity<Borrower> deleteBorrower(@PathVariable long borrowerId) {
-		return iFeignAdministrator.deleteBorrower(borrowerId);
+		try {
+			return iFeignAdministrator.deleteBorrower(borrowerId);
+		} catch (feign.FeignException fe) {
+			return new ResponseEntity<Borrower>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	// -----------------------BORROWER-----------------------------------//
@@ -119,9 +135,14 @@ public class AdministratorController {
 		return iFeignAdministrator.updateLibraryBranch(libraryBranch);
 	}
 
-	@DeleteMapping("/libraryBranches/libraryBranch/{libraryBranchId}")
+	@DeleteMapping("/libraryBranches/{libraryBranchId}")
 	public ResponseEntity<LibraryBranch> deleteLibraryBranch(@PathVariable long libraryBranchId) {
-		return iFeignAdministrator.deleteLibraryBranch(libraryBranchId);
+		try {
+			return iFeignAdministrator.deleteLibraryBranch(libraryBranchId);
+		} catch (feign.FeignException fe) {
+			return new ResponseEntity<LibraryBranch>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	// -----------------------LIBRARYBRANCH-----------------------------------//
@@ -143,9 +164,13 @@ public class AdministratorController {
 		return iFeignAdministrator.updatePublisher(publisher);
 	}
 
-	@DeleteMapping("/publishers/publisher{publisherId}")
+	@DeleteMapping("/publishers/publisher/{publisherId}")
 	public ResponseEntity<Publisher> deletePublisher(@PathVariable long publisherId) {
-		return iFeignAdministrator.deletePublisher(publisherId);
+		try {
+			return iFeignAdministrator.deletePublisher(publisherId);
+		} catch (feign.FeignException fe) {
+			return new ResponseEntity<Publisher>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// -----------------------PUBLISHER---------------------------------------//
@@ -156,7 +181,11 @@ public class AdministratorController {
 	public ResponseEntity<BookLoans> overRideDueDate(@RequestParam("bookId") long bookId,
 			@RequestParam("branchId") long branchId, @RequestParam("cardNo") long cardNo,
 			@RequestParam String newDate) {
-		return iFeignAdministrator.overRideDueDate(bookId, branchId, cardNo, newDate);
+		try {
+			return iFeignAdministrator.overRideDueDate(bookId, branchId, cardNo, newDate);
+		} catch (feign.FeignException fe) {
+			return new ResponseEntity<BookLoans>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// -----------------------OVERRIDEDUEDATE-----------------------------------------//
